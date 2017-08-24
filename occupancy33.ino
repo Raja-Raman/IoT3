@@ -115,7 +115,7 @@ void sendStatus() {
 
 void occupyRoom() {
   occupied = 1;
-  statusCode = "1";
+  statusCode = 1;
   digitalWrite(roomstatusled, HIGH);
   digitalWrite(relay1, HIGH);
   sendStatus(); 
@@ -123,7 +123,7 @@ void occupyRoom() {
 
 void releaseRoom() {
   occupied = 0;
-  statusCode = "3";  
+  statusCode = 3;  
   digitalWrite(roomstatusled, LOW);
   digitalWrite(relay1, LOW);
   sendStatus(); 
@@ -131,7 +131,7 @@ void releaseRoom() {
 
 // pre-release warning 
 void buzz() {
-  statusCode = "2"; 
+  statusCode = 2; 
   sendStatus();   
   T.oscillate (buzzer,75, LOW, 6);  
   T.oscillate (roomstatusled, 100, HIGH, 4);
