@@ -46,6 +46,7 @@ unsigned int buzzerticks = 50*10;     // n*10 ticks=n seconds
 unsigned int releaseticks = 60*10;    // n*10 ticks=n seconds  
 Timer T;
 
+int statusCode = 0;
 void setup() {
   pinMode(radar, INPUT);
   pinMode(pir1, INPUT);
@@ -59,8 +60,9 @@ void setup() {
   digitalWrite(pirled1, LOW);
   digitalWrite(roomstatusled, LOW);
   digitalWrite(buzzer, LOW); // active high @ office
+  statusCode = 0; // status = 'Just Reset'
   ser.begin(baud);
-  ser.println("0"); // status = 'Just Reset'  
+  sendStatus();   
   blinker();    
   occupyRoom(); // program starts in occupied status
   int timerid1 = T.every(tickinterval, tick);
@@ -104,11 +106,10 @@ void tick() {
 }
 
 // Status:
+// 0 - Arduino restarted
 // 1 - occupied state
-// 2 - pre-release warning event
+// 2 - pre-release warning state
 // 3 - vacant state
-int statusCode = 0;
-
 void sendStatus() {
   ser.print(statusCode);
 }
